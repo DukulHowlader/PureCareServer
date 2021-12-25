@@ -70,6 +70,14 @@ client.connect((err) => {
 		});
 	});
 
+	app.get("/categories/:id", (req, res) => {
+		const id = req.params.id;
+		categoryCollection.find({ _id: ObjectId(id) })
+		.toArray((err, documents) => {
+			res.send(documents);
+		});
+	});
+
 	app.get("/order/:id", (req, res) => {
 		const key = req.params.id;
 		orderCollection.find({ _id: ObjectId(key) })
