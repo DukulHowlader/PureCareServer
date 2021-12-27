@@ -124,6 +124,26 @@ client.connect((err) => {
 			});
 	});
 
+	app.patch("/updateProduct/:id", (req, res) => {
+		userCollection
+			.updateOne(
+				{ _id: ObjectId(req.params.id) },
+				{
+					$set: {
+						CustomerName: req.body.CustomerName,
+						CustomerEmail: req.body.CustomerEmail,
+						CustomerContact: req.body.CustomerContact,
+						CustomerAddress: req.body.CustomerAddress,
+						CustomerPass: req.body.CustomerPass,
+						CustomerImage: req.body.CustomerImage,
+					},
+				}
+			)
+			.then((result) => {
+				res.send(result.modifiedCount > 0);
+			});
+	});
+
 	app.patch('/updateAdmin', (req, res) => {
 		const OldPass = req.body.OldPass;
 		const NewPass = req.body.NewPass;
